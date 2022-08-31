@@ -1,3 +1,4 @@
+import { MinoPattern, MinoPatternType } from "./TetrisBlocks";
 const board: number[][] = [];
 const tate = 20;
 const yoko = 10;
@@ -27,51 +28,29 @@ const showBoard = () => {
     });
   });
 };
-// [ 回転できる通り . [ 初期のブロックの場所x  , y]]
-type BlockType = { RountaionNumber: number; blocks: [number, number] };
-const blocks: BlockType = [
-  { RountaionNumber: 0, blocks: [] }, // 何もなし
-  {
-    // I
-    RountaionNumber: 2,
-    blocks: [
-      [-1, 0],
-      [1, 0],
-      [2, 0],
-    ],
-  },
-  {
-    // Z 右
-    RountaionNumber: 2,
-    blocks: [
-      [-1, 0],
-      [0, 1],
-      [1, 1],
-    ],
-  },
-];
 
 const PutBlock = (
   blockIndex: number,
   x: number,
   y: number,
-  Routeation: number,
-  remove: boolean,
-  action
+  Routeation: number
+  // remove?: true
 ) => {
-  const TetorisBloxk = [...blocks[blockIndex]];
-  const BlockRoutatMax = TetorisBloxk.shift();
-  TetorisBloxk.unshift([0, 0]);
+  const TetorisBloxk = MinoPattern[blockIndex].blocks;
+  const BlockRoutatMax = MinoPattern[blockIndex].RountaionNumber;
 
   for (const [dx, dy] of TetorisBloxk) {
+    let ddx: number = dx;
+    let ddy: number = dy;
     for (let i = 0; i < Routeation % BlockRoutatMax; i++) {
-      [dx, dy] = [dy, -dx];
+      ddx = dy;
+      ddy = -dx;
     }
 
-    board[y + dy][x + dx] = blockIndex;
+    board[y + ddy][x + ddx] = blockIndex;
   }
 };
 window.onload = () => {
-  PutBlock(1, 3, 4, 0);
+  PutBlock(2, 3, 4, 2);
   showBoard();
 };

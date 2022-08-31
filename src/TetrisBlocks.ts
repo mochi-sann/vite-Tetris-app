@@ -10,6 +10,7 @@ export const MinoPattern: Array<MinoPatternType> = [
     RountaionNumber: 2,
     blocks: [
       [-1, 0],
+      [0, 0],
       [1, 0],
       [2, 0],
     ],
@@ -20,6 +21,7 @@ export const MinoPattern: Array<MinoPatternType> = [
     blocks: [
       [-1, 0],
       [0, 1],
+      [0, 0],
       [1, 1],
     ],
   },
@@ -28,6 +30,7 @@ export const MinoPattern: Array<MinoPatternType> = [
     RountaionNumber: 2,
     blocks: [
       [-1, 0],
+      [0, 0],
       [0, 1],
       [1, 1],
     ],
@@ -37,6 +40,7 @@ export const MinoPattern: Array<MinoPatternType> = [
     RountaionNumber: 2,
     blocks: [
       [0, 1],
+      [0, 0],
       [1, 0],
       [1, 1],
     ],
@@ -46,6 +50,7 @@ export const MinoPattern: Array<MinoPatternType> = [
     RountaionNumber: 2,
     blocks: [
       [-1, 0],
+      [0, 0],
       [1, 0],
       [1, 1],
     ],
@@ -55,6 +60,7 @@ export const MinoPattern: Array<MinoPatternType> = [
     RountaionNumber: 2,
     blocks: [
       [0, 1],
+      [0, 0],
       [1, 0],
       [1, -1],
     ],
@@ -64,6 +70,7 @@ export const MinoPattern: Array<MinoPatternType> = [
     RountaionNumber: 2,
     blocks: [
       [-1, 0],
+      [0, 0],
       [0, 1],
       [0, -1],
     ],
