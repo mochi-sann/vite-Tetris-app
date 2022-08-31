@@ -34,9 +34,9 @@ const PutBlock = (
   x: number,
   y: number,
   Routeation: number,
-  remove: boolean,
+  remove: boolean = false,
   action: boolean = false
-) => {
+): boolean => {
   const TetorisBloxk = MinoPattern[blockIndex].blocks;
   const BlockRoutatMax = MinoPattern[blockIndex].RountaionNumber;
 
@@ -52,7 +52,7 @@ const PutBlock = (
       board[y + ddy][x + ddx] = 0;
     } else {
       if (board[y + ddy][x + ddx]) {
-        return;
+        return false;
       }
       if (!action) {
         board[y + ddy][x + ddx] = blockIndex;
@@ -62,9 +62,81 @@ const PutBlock = (
   if (action) {
     PutBlock(blockIndex, x, y, Routeation, remove, true);
   }
+  return true;
 };
+
+let CurrentPosition = {
+  x: 4,
+  y: 0,
+  r: 0,
+  i: 4,
+  gameover: false,
+};
+
+const MoveMino = (x: number, y: number, r: number): boolean => {
+  PutBlock(
+    CurrentPosition.i,
+    CurrentPosition.x,
+    CurrentPosition.y,
+    CurrentPosition.r,
+    true
+  );
+  const MinoTrue = PutBlock(
+    CurrentPosition.i,
+    CurrentPosition.x + x,
+    CurrentPosition.y + y,
+    CurrentPosition.r + r
+  );
+
+  if (MinoTrue) {
+    CurrentPosition.x += x;
+    CurrentPosition.y += y;
+    CurrentPosition.r += r;
+    showBoard();
+    return true;
+  } else {
+    PutBlock(
+      CurrentPosition.i,
+      CurrentPosition.x,
+      CurrentPosition.y,
+      CurrentPosition.r
+    );
+    return false;
+  }
+};
+
 window.onload = () => {
-  PutBlock(5, 3, 4, 2, false);
-  PutBlock(1, 3, 7, 2, false);
+  PutBlock(
+    CurrentPosition.i,
+    CurrentPosition.x,
+    CurrentPosition.y,
+    CurrentPosition.r
+  );
+  document.onkeydown = (e) => {
+    if (CurrentPosition.gameover) {
+      return;
+    }
+    switch (e.key) {
+      case "ArrowLeft":
+        // 左
+        MoveMino(-1, 0, 0);
+        break;
+      case "ArrowRight":
+        // 右
+        MoveMino(1, 0, 0);
+        break;
+      case "ArrowUp":
+        MoveMino(0, 0, 1);
+        // 上-
+        break;
+
+      case "ArrowDown":
+        MoveMino(0, 1, 0);
+        // 下
+        break;
+      default:
+        break;
+    }
+  };
   showBoard();
 };
