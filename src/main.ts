@@ -39,10 +39,20 @@ const PutBlock = (
 ): boolean => {
   const TetorisBloxk = MinoPattern[blockIndex].blocks;
   const BlockRoutatMax = MinoPattern[blockIndex].RountaionNumber;
-
+  let end = false;
+  for (const [dy, dx] of TetorisBloxk) {
+    let ddx: number = dx;
+    if (x + ddx < 0 || x + ddx > 9) {
+      end = true;
+      return false;
+    }
+  }
   for (const [dy, dx] of TetorisBloxk) {
     let ddx: number = dx;
     let ddy: number = dy;
+    // if (ddx < 0 && 11 < ddx) {
+    //   return false;
+    // }
     for (let i = 0; i < Routeation % BlockRoutatMax; i++) {
       ddx = dy;
       ddy = -dx;
@@ -51,7 +61,7 @@ const PutBlock = (
     if (remove) {
       board[y + ddy][x + ddx] = 0;
     } else {
-      if (board[y + ddy][x + ddx]) {
+      if (end || board[y + ddy][x + ddx]) {
         return false;
       }
       if (!action) {
@@ -67,9 +77,9 @@ const PutBlock = (
 
 let CurrentPosition = {
   x: 4,
-  y: 0,
+  y: 1,
   r: 0,
-  i: 4,
+  i: 2,
   gameover: false,
 };
 
