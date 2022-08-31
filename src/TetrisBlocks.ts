@@ -1,6 +1,6 @@
 // [ 回転できる通り . [ 初期のブロックの場所x  , y]]
 export type MinoPatternType = {
-  RountaionNumber: number;
+  RountaionNumber: number; // 下院店できる数
   blocks: Array<[number, number]>;
 };
 export const MinoPattern: Array<MinoPatternType> = [

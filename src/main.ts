@@ -1,4 +1,4 @@
-import { MinoPattern, MinoPatternType } from "./TetrisBlocks";
+import { MinoPattern } from "./TetrisBlocks";
 const board: number[][] = [];
 const tate = 20;
 const yoko = 10;
@@ -28,18 +28,19 @@ const showBoard = () => {
     });
   });
 };
-
+// ブロックを回転
 const PutBlock = (
   blockIndex: number,
   x: number,
   y: number,
-  Routeation: number
-  // remove?: true
+  Routeation: number,
+  remove: boolean,
+  action: boolean = false
 ) => {
   const TetorisBloxk = MinoPattern[blockIndex].blocks;
   const BlockRoutatMax = MinoPattern[blockIndex].RountaionNumber;
 
-  for (const [dx, dy] of TetorisBloxk) {
+  for (const [dy, dx] of TetorisBloxk) {
     let ddx: number = dx;
     let ddy: number = dy;
     for (let i = 0; i < Routeation % BlockRoutatMax; i++) {
@@ -47,10 +48,23 @@ const PutBlock = (
       ddy = -dx;
     }
 
-    board[y + ddy][x + ddx] = blockIndex;
+    if (remove) {
+      board[y + ddy][x + ddx] = 0;
+    } else {
+      if (board[y + ddy][x + ddx]) {
+        return;
+      }
+      if (!action) {
+        board[y + ddy][x + ddx] = blockIndex;
+      }
+    }
+  }
+  if (action) {
+    PutBlock(blockIndex, x, y, Routeation, remove, true);
   }
 };
 window.onload = () => {
-  PutBlock(2, 3, 4, 2);
+  PutBlock(5, 3, 4, 2, false);
+  PutBlock(1, 3, 7, 2, false);
   showBoard();
 };
